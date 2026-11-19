@@ -1,0 +1,16 @@
+# Vídeos e mídia renderizada (grandes demais para o Git)
+*.mp4
+*.mov
+*.mkv
+*.wav
+*.mp3
+*.png
+*.jpg
+!thumbs/*.png
+
+# Temporários
+__pycache__/
+*.pyc
+frames/
+tmp/
+out/
