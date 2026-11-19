@@ -9,13 +9,17 @@ Atualize este arquivo ao fim de cada sessão (máx. ~150 palavras no estado atua
 - Thumbnail: prompt escrito, imagem ainda não gerada.
 - Texto de publicação do Facebook: pronto.
 
-## PENDENTE (bloqueia o mesmo padrão em chats novos)
-- [ ] O código do motor 2.5D está só na área de trabalho do chat "Recriar vídeo animado 2D".
-      Copiar para `engine/` (baixar os .py pelo "Baixar tudo" desse chat) e fazer commit.
-- [ ] Copiar o roteiro e a narração da Corrida Espacial para `scenes/corrida_espacial/`.
+## CONCLUÍDO
+- [x] Motor 2.5D copiado para `engine/` (common, main, audio, narracao, patch_segmento).
+- [x] Roteiro, narração (texto), parâmetros e durações em `scenes/corrida_espacial/`.
+- [x] Cenas 1, 5 e 7 renderizadas a partir deste repositório e comparadas com o original: idênticas pixel a pixel.
+
+## PENDENTE
+- [ ] Narração e áudio completo não foram rodados a partir do repositório (exigem baixar o modelo de voz, ver BRIEF.md).
+- [ ] Thumbnail: gerar a imagem (prompt já escrito).
 
 ## Próximo passo
-- Após copiar o motor, rodar a cena 1 deste repositório para confirmar que o resultado é igual.
+- Novo vídeo: criar `scenes/<nome>/` com `scenes.py`, `params.json`, `roteiro.md`, `narracao.txt` e rodar `engine/narracao.py`.
 
 ## Como começar um chat novo
 Cole: "Leia BRIEF.md e HANDOFF.md do repositório videos e continue: <tarefa>".

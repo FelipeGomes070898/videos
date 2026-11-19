@@ -44,9 +44,31 @@ Não releia nem peça o histórico de chats antigos.
 - Mudanças: devolver só o trecho alterado, não o arquivo inteiro.
 
 ## Motor de animação
-- Código em `engine/` (a copiar do chat da Corrida Espacial, ver HANDOFF.md).
-- Cenas em `scenes/<nome-do-video>/`.
+- Código em `engine/`: `common.py` (Terra/Lua procedurais, estrelas, câmera `G`, personagens), `main.py` (transições, pós-processamento, render), `audio.py` (trilha, efeitos, mixagem), `narracao.py` (voz), `patch_segmento.py` (re-renderiza só um trecho).
+- Cada vídeo em `scenes/<nome-do-video>/`: `scenes.py` (cenas), `params.json`, `dur.json`, `roteiro.md`, `narracao.txt`.
 - Vídeos renderizados ficam fora do Git (ver .gitignore).
+
+## Comandos
+- Teste de quadros: `python3 engine/main.py still 4,33,52` (saída em `out/`).
+- Render completo: `python3 engine/main.py out/v1080.mp4 out/v4k.mp4` (gera 1080p e 4K por upscale, sem áudio, ~17 min com 2 núcleos).
+- Narração: `python3 engine/narracao.py`, depois `python3 engine/audio.py` (gera `out/audio_mix.wav`).
+- Variáveis: `VIDEO_DIR` (pasta do vídeo), `OUT_DIR`, `SUBS=1` (legenda queimada; padrão desligada).
+- Dependências: pillow, numpy, scipy, soundfile, kokoro-onnx, ffmpeg, fontes Poppins e DejaVu Sans Mono.
+- Modelo de voz: baixar `kokoro-v1.0.onnx` e `voices-v1.0.bin` em github.com/thewh1teagle/kokoro-onnx/releases (tag model-files-v1.0) e salvar como `out/tts/kokoro.onnx` e `out/tts/voices.bin`.
+
+## Valores do padrão (técnicos)
+- fps 30; render 1080x1920; 4K por `scale=2160:3840:flags=lanczos`; vídeo 67 s (2010 quadros).
+- Fontes: Poppins Bold (títulos e datas), Poppins Medium (subtítulos de data), DejaVu Sans Mono (rótulos técnicos). Legenda queimada (opcional): Poppins Bold 50 px, faixa escura no rodapé a partir de y=1620.
+- Bloom: reduzir a 1/4, limiar 170 (×1,8), blur gaussiano 8, intensidade 0,35 (em cenas claras, reduzir ou zerar).
+- Cor: contraste ×1,07 em torno de 128, tinta suave por cena (lista GRADE em `main.py`).
+- Vinheta: 0,34 (elíptica, raio 0,74 da largura/altura). Textura de papel: multiplicador 0,965–1,015 estático.
+- Grão de filme: ruído gaussiano sigma 2,6 por quadro. Fade de entrada 0,6 s e saída 1,0 s.
+- Transições: 0,7 s, centradas no corte (íris com anel laranja, cortina com linha laranja, zoom com dissolução).
+- Cenas: Terra procedural (textura 2048x1024, nuvens), sprite base 560 px reescalado; Lua procedural com crateras.
+- Voz: Kokoro-ONNX, voz `pm_alex`, pt-br, velocidade 0,95; pós: tom -6% (asetrate 22560 + atempo 1,0638), realce de graves +4 dB em 120 Hz, compressor (-20 dB, 3:1), loudnorm -16 LUFS.
+- Mixagem: narração 1,0; trilha 0,55 com redução de 50% sob a fala; efeitos 0,9; saída final loudnorm I=-16, TP=-1,5, LRA=9; AAC 192 kbps.
+- Compressão final: 1080p crf 25, 4K crf 27 (preset medium). Não rodar duas codificações 4K em paralelo (falta de memória).
+- Voz: não foi possível ouvir o resultado nesta sessão; conferir tom e ritmo.
 
 ## Metadados de publicação (Facebook)
 - Sem campo de tags: palavras-chave no fim do texto, no máximo 5 hashtags.

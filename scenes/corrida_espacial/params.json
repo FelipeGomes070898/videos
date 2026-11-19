@@ -1,0 +1,90 @@
+{
+ "video": "A Corrida Espacial",
+ "resolucao_render": [
+  1080,
+  1920
+ ],
+ "resolucao_final": [
+  2160,
+  3840
+ ],
+ "fps": 30,
+ "cenas_duracao_s": [
+  9.0,
+  8.2,
+  6.8,
+  7.8,
+  8.0,
+  10.0,
+  7.0,
+  10.2
+ ],
+ "total_s": 67.0,
+ "narr_offsets": [
+  1.0,
+  0.8,
+  0.5,
+  0.6,
+  0.5,
+  1.0,
+  0.5,
+  0.8
+ ],
+ "transition_s": 0.7,
+ "transitions": {
+  "1": [
+   "iris",
+   [
+    1090,
+    450
+   ]
+  ],
+  "2": [
+   "wipe",
+   null
+  ],
+  "3": [
+   "zoom",
+   null
+  ],
+  "4": [
+   "iris",
+   [
+    840,
+    430
+   ]
+  ],
+  "5": [
+   "wipe",
+   null
+  ],
+  "6": [
+   "iris",
+   [
+    540,
+    1150
+   ]
+  ],
+  "7": [
+   "zoom",
+   null
+  ]
+ },
+ "voz": {
+  "motor": "kokoro-onnx",
+  "nome": "pm_alex",
+  "lang": "pt-br",
+  "velocidade": 0.95,
+  "filtro_ffmpeg": "asetrate=22560,aresample=24000,atempo=1.0638,equalizer=f=120:t=h:w=100:g=4,acompressor=threshold=-20dB:ratio=3,loudnorm=I=-16:TP=-1.5"
+ },
+ "narracao": [
+  "Em uma época em que a humanidade ainda tentava compreender o espaço, duas nações começaram uma disputa que mudaria nossa história.",
+  "Em 1957, a União Soviética lançou o Sputnik 1, o primeiro satélite artificial da história.",
+  "Quatro anos depois, Yuri Gagarin se tornou o primeiro ser humano a viajar pelo espaço.",
+  "Os Estados Unidos decidiram ir ainda mais longe: levar um ser humano à Lua antes do fim daquela década.",
+  "Em julho de 1969, o foguete Saturno V levou a missão Apollo 11 em direção ao espaço.",
+  "Em 20 de julho de 1969, a Apollo 11 pousou na Lua. Pela primeira vez, seres humanos chegaram à superfície de outro mundo.",
+  "Neil Armstrong desceu as escadas do módulo lunar e deu um passo que entrou para a história.",
+  "A corrida espacial não mudou apenas a história. Ela mostrou que os limites da humanidade podem ser muito maiores do que imaginávamos."
+ ]
+}

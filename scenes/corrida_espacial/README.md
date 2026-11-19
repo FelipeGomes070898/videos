@@ -1,0 +1,1 @@
+Parâmetros desta produção: `params.json` (durações, transições, offsets de fala, voz), `dur.json` (duração real de cada fala, gerado por `engine/narracao.py`), `scenes.py` (as 8 cenas desenhadas por código).
