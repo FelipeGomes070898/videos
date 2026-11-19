@@ -1,9 +1,10 @@
-import math, random
+import os, math, random
 import numpy as np
 from scipy.ndimage import gaussian_filter
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 
-W, H, FPS = 1080, 1920, 30
+ORIENT = os.environ.get('ORIENT', 'v')   # v = 9:16 (1080x1920, 30 fps) | h = 16:9 (1920x1080, 24 fps)
+W, H, FPS = (1920, 1080, 24) if ORIENT == 'h' else (1080, 1920, 30)
 NAVY = (14, 24, 56); BLACK = (5, 7, 14); BEIGE = (228, 214, 186); WH = (246, 244, 238)
 GRAY = (150, 156, 168); OR = (206, 100, 40); YL = (244, 214, 130)
 FD = '/usr/share/fonts/truetype/google-fonts/'

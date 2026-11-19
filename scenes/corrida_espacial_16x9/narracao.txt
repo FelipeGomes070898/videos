@@ -1,0 +1,25 @@
+[Cena 1] Em uma época em que a humanidade ainda tentava compreender o espaço, duas nações começaram uma disputa que mudaria nossa história. Era a Guerra Fria, e o céu se tornou o novo campo de batalha.
+
+[Cena 2] Em quatro de outubro de mil novecentos e cinquenta e sete, a União Soviética lançou o Sputnik 1, o primeiro satélite artificial da história. Seu simples sinal de rádio foi ouvido em todo o planeta, e a corrida espacial começou.
+
+[Cena 3] Quatro anos depois, em doze de abril de mil novecentos e sessenta e um, Yuri Gagarin se tornou o primeiro ser humano a viajar pelo espaço. A bordo da Vostok 1, ele deu uma volta ao redor da Terra em cento e oito minutos.
+
+[Cena 4] Os Estados Unidos estavam atrás. Em maio de mil novecentos e sessenta e um, o presidente John Kennedy anunciou uma meta quase impossível: levar um homem à Lua e trazê-lo de volta em segurança antes do fim daquela década.
+
+[Cena 5] Para cumprir a promessa, foi preciso construir o maior foguete já feito: o Saturno V, com cento e onze metros de altura. Mais de quatrocentas mil pessoas trabalharam no programa Apollo.
+
+[Cena 6] Em dezembro de mil novecentos e sessenta e oito, a Apollo 8 levou três astronautas até a órbita da Lua. Pela primeira vez, seres humanos viram a Terra surgir sobre o horizonte lunar.
+
+[Cena 7] Em dezesseis de julho de mil novecentos e sessenta e nove, o Saturno V decolou do Cabo Kennedy, levando a missão Apollo 11 e os astronautas Neil Armstrong, Buzz Aldrin e Michael Collins.
+
+[Cena 8] Foram quatro dias de viagem pelo vazio, a mais de trezentos e oitenta mil quilômetros de casa.
+
+[Cena 9] Em vinte de julho, o módulo lunar Eagle desceu em direção ao Mar da Tranquilidade. Com o combustível quase no fim, Armstrong assumiu o controle manual e pousou. Pela primeira vez, seres humanos chegaram à superfície de outro mundo.
+
+[Cena 10] Neil Armstrong desceu as escadas do módulo lunar e deu um passo que entrou para a história: um pequeno passo para um homem, um salto gigantesco para a humanidade.
+
+[Cena 11] Armstrong e Aldrin passaram mais de duas horas caminhando na superfície. Eles plantaram uma bandeira, instalaram experimentos e coletaram mais de vinte quilos de rochas lunares.
+
+[Cena 12] Em vinte e quatro de julho, a cápsula Columbia mergulhou no Oceano Pacífico, e os três astronautas voltaram para casa.
+
+[Cena 13] Entre mil novecentos e sessenta e nove e mil novecentos e setenta e dois, seis missões pousaram na Lua, e doze pessoas caminharam em sua superfície. A corrida espacial não mudou apenas a história. Ela mostrou que os limites da humanidade podem ser muito maiores do que imaginávamos.

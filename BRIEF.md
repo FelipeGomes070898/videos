@@ -56,6 +56,13 @@ Não releia nem peça o histórico de chats antigos.
 - Dependências: pillow, numpy, scipy, soundfile, kokoro-onnx, ffmpeg, fontes Poppins e DejaVu Sans Mono.
 - Modelo de voz: baixar `kokoro-v1.0.onnx` e `voices-v1.0.bin` em github.com/thewh1teagle/kokoro-onnx/releases (tag model-files-v1.0) e salvar como `out/tts/kokoro.onnx` e `out/tts/voices.bin`.
 
+## Versão horizontal (YouTube 16:9)
+- `ORIENT=h`: 1920x1080, 24 fps, 4K 3840x2160 por upscale. Pasta `scenes/corrida_espacial_16x9/` (13 cenas, ~175 s).
+- Extra no pós: brilho anamórfico horizontal (azulado) além do bloom.
+- Áudio: `ORIENT=h VIDEO_DIR=... OUT_DIR=... python3 engine/audio_h.py` (usa `engine/synth.py`).
+- Exportação final: `-vf hqdn3d=3:3:6:6` antes do x264 (reduz muito o peso do grão): 1080p crf 22 (~74 MB), 4K crf 23 (~185 MB). Render completo ~35 min (4208 quadros, 2 núcleos).
+- Exemplo: `ORIENT=h VIDEO_DIR=$PWD/scenes/corrida_espacial_16x9 OUT_DIR=$PWD/out python3 engine/narracao.py` e depois `engine/main.py out/v1080.mp4 out/v4k.mp4`.
+
 ## Valores do padrão (técnicos)
 - fps 30; render 1080x1920; 4K por `scale=2160:3840:flags=lanczos`; vídeo 67 s (2010 quadros).
 - Fontes: Poppins Bold (títulos e datas), Poppins Medium (subtítulos de data), DejaVu Sans Mono (rótulos técnicos). Legenda queimada (opcional): Poppins Bold 50 px, faixa escura no rodapé a partir de y=1620.

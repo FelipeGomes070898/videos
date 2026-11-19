@@ -17,7 +17,7 @@ DUR = json.load(open(os.path.join(VIDEO_DIR, 'dur.json')))
 NOFF = PARAMS['narr_offsets']
 NARR = PARAMS['narracao']
 TR = PARAMS['transition_s']
-TRANS = {int(k): (v[0], tuple(v[1]) if v[1] else None) for k, v in PARAMS['transitions'].items()}
+TRANS = {int(k): (v[0], tuple(v[1]) if v[1] else None, v[2] if len(v) > 2 else 'up') for k, v in PARAMS['transitions'].items()}
 
 
 def chunks(text, maxc=30):
@@ -71,6 +71,18 @@ def sub_layer(img, t):
 
 
 def bloom(a, k=0.35, thr=170):
+    a = _bloom(a, k, thr)
+    if ORIENT == 'h':
+        sm = np.asarray(Image.fromarray(np.clip(a, 0, 255).astype(np.uint8)).resize((W // 8, H // 8), Image.BILINEAR)).astype(np.float32)
+        br = np.clip((sm - 215) * 3.0, 0, 255)
+        from scipy.ndimage import uniform_filter1d
+        br = uniform_filter1d(br, 40, axis=1)
+        st = np.asarray(Image.fromarray(np.clip(br, 0, 255).astype(np.uint8)).resize((W, H), Image.BICUBIC)).astype(np.float32)
+        a = a + st * np.array([.18, .26, .38], np.float32)
+    return a
+
+
+def _bloom(a, k=0.35, thr=170):
     sm = Image.fromarray(np.clip(a, 0, 255).astype(np.uint8)).resize((W // 4, H // 4), Image.BILINEAR)
     s = np.asarray(sm).astype(np.float32)
     br = np.clip((s - thr) * 1.8, 0, 255)
@@ -100,6 +112,17 @@ def wipe(A, B, u, up=True):
     return to_img(out + ring)
 
 
+def hwipe(A, B, u):
+    ue = IO(u)
+    xs = np.arange(W, dtype=np.float32)[None, :, None]
+    edge = W * ue
+    mk = np.clip((edge - xs) / 80.0 + .5, 0, 1)
+    mk = np.broadcast_to(mk, (H, W, 1))
+    out = np.asarray(B).astype(np.float32) * mk + np.asarray(A).astype(np.float32) * (1 - mk)
+    ring = np.clip(1 - np.abs(xs - edge) / 6, 0, 1) * np.array([244, 190, 90], np.float32)
+    return to_img(out + ring)
+
+
 def zoomx(A, B, u):
     ue = IO(u)
     za = 1 + 0.55 * ue
@@ -123,20 +146,23 @@ def frame(i):
         pn = gaussian_filter(np.random.default_rng(1).normal(size=(H // 2, W // 2)).astype(np.float32), 1.2)
         pn = np.asarray(Image.fromarray(((pn - pn.min()) / (pn.max() - pn.min()) * 255).astype(np.uint8)).resize((W, H), Image.BILINEAR)).astype(np.float32) / 255
         PAPER = (0.965 + 0.05 * pn)[..., None]
-    idx = max(k for k in range(8) if SC.STARTS[k] <= t + 1e-6)
+    NS = len(SC.STARTS)
+    idx = max(k for k in range(NS) if SC.STARTS[k] <= t + 1e-6)
     gi = idx
     img = None
-    for k in range(1, 8):
+    for k in range(1, NS):
         b = SC.STARTS[k]
         if b - TR / 2 <= t < b + TR / 2:
             u = (t - (b - TR / 2)) / TR
             A = SC.SCENES[k - 1](t - SC.STARTS[k - 1])
             B = SC.SCENES[k](max(0, t - b))
-            typ, c = TRANS[k]
+            typ, c, dr = TRANS[k]
             if typ == 'iris':
                 img = iris(A, B, c, u)
             elif typ == 'wipe':
-                img = wipe(A, B, u, up=(k == 2 or k == 5))
+                img = wipe(A, B, u, up=(dr == 'up'))
+            elif typ == 'hwipe':
+                img = hwipe(A, B, u)
             else:
                 img = zoomx(A, B, u)
             gi = k - 1 if u < .5 else k
@@ -144,7 +170,7 @@ def frame(i):
         img = SC.SCENES[idx](t - SC.STARTS[idx])
     a = np.asarray(img).astype(np.float32)
     a = bloom(a)
-    a = a * np.array(GRADE[gi], np.float32)
+    a = a * np.array(GRADE[gi % len(GRADE)], np.float32)
     a = (a - 128) * 1.07 + 128
     img = to_img(a)
     if SUBTITLES:
@@ -166,7 +192,7 @@ def main():
     out1080, out4k = sys.argv[1], sys.argv[2]
     n = int(SC.TOTAL * FPS)
     cmd = ['ffmpeg', '-y', '-v', 'error', '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-s', f'{W}x{H}', '-r', str(FPS), '-i', '-',
-           '-filter_complex', '[0:v]split=2[a][b];[b]scale=2160:3840:flags=lanczos[c]',
+           '-filter_complex', '[0:v]split=2[a][b];[b]scale=%d:%d:flags=lanczos[c]' % tuple(PARAMS.get('resolucao_final', [2160, 3840])),
            '-map', '[a]', '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '18', '-pix_fmt', 'yuv420p', out1080,
            '-map', '[c]', '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '21', '-pix_fmt', 'yuv420p', out4k]
     ff = subprocess.Popen(cmd, stdin=subprocess.PIPE)

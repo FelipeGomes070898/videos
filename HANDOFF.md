@@ -4,12 +4,14 @@ Atualize este arquivo ao fim de cada sessão (máx. ~150 palavras no estado atua
 
 ## Estado atual
 - Corrida Espacial (9:16, 67 s, 8 cenas): pronto em 1080p e 4K, com e sem legenda.
+- Corrida Espacial horizontal (16:9, 2:55, 13 cenas): pronto em 1080p e 4K.
   Cenas: Terra + satélite, Sputnik, cápsula do Gagarin em corte, Saturno V subindo, lançamento, pouso, passo, legado.
 - Segunda Guerra (720x1280, 60 s, 7 cenas): versões 1, 2 e 3 (6 melhorias) prontas.
 - Thumbnail: prompt escrito, imagem ainda não gerada.
 - Texto de publicação do Facebook: pronto.
 
 ## CONCLUÍDO
+- [x] Versão horizontal 16:9 da Corrida Espacial (2:55, 13 cenas, 4K + 1080p) gerada a partir deste repositório; pacote de publicação do YouTube pronto.
 - [x] Motor 2.5D copiado para `engine/` (common, main, audio, narracao, patch_segmento).
 - [x] Roteiro, narração (texto), parâmetros e durações em `scenes/corrida_espacial/`.
 - [x] Cenas 1, 5 e 7 renderizadas a partir deste repositório e comparadas com o original: idênticas pixel a pixel.
